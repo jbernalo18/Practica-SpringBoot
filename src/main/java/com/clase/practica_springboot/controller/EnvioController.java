@@ -34,4 +34,19 @@ public class EnvioController {
     }
 
 
+    @PutMapping("/{id}")
+    public Envio updateEnvio(@PathVariable String id, @RequestBody Envio envio){
+        return envioService.update(id, envio);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEnvio(@PathVariable String id){
+        envioService.deletebyId(id);
+    }
+    @GetMapping("/estados/{estado}")
+    public List<Envio> getEnvioByEstado(@PathVariable String estado){
+        return envioService.findByEstado(estado);
+    }
+
+
 }

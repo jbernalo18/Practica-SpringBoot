@@ -44,7 +44,7 @@ public class Envio {
     }
 
     public String getDestino() {
-        return destino;
+        return this.destino;
     }
 
     public void setDestino(String destino) {

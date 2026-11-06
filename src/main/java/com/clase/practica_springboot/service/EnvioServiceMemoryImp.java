@@ -39,22 +39,34 @@ public class EnvioServiceMemoryImp implements EnvioService{
 
     @Override
     public Envio save(Envio envio) {
+        envio.setId(UUID.randomUUID().toString());
         envios.add(envio);
         return envio;
     }
 
     @Override
     public Envio update(String id, Envio envioActualizado) {
-        return null;
+        Envio envioViejo = findById(id);
+        if (envioViejo==null){
+            return  null;
+        }
+        envioViejo.setId(id);
+        envioViejo.setCliente(envioActualizado.getCliente());
+        envioViejo.setDestino(envioActualizado.getDestino());
+        envioViejo.setEstado(envioActualizado.getEstado());
+        envioViejo.setPesoKg(envioActualizado.getPesoKg());
+        return envioViejo;
     }
 
     @Override
     public void deletebyId(String id) {
-
+        envios.removeIf(e -> e.getId().equals(id));
     }
 
     @Override
     public List<Envio> findByEstado(String estado) {
-        return List.of();
+         return  envios.stream()
+                .filter( e -> e.getEstado().equalsIgnoreCase(estado))
+                .toList();
     }
 }
