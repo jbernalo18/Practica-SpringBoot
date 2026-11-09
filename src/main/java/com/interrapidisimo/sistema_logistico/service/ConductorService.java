@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ConductorService{
     List<Conductor> findAll();
-    Conductor findById(String id);
+    Conductor findById(Long id);
     Conductor save(Conductor conductor);
-    Conductor update(String id, Conductor conductor);
-    void deleteById(String id);
+    Conductor update(Long id, Conductor conductor);
+    void deleteById(Long id);
     List<Conductor> findByLicencia(String licencia);
 }

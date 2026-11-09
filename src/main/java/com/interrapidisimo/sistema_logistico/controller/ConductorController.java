@@ -24,7 +24,7 @@ public class ConductorController {
     }
 
     @GetMapping ("/{id}")
-    public Conductor getConductorById(@PathVariable String id){
+    public Conductor getConductorById(@PathVariable Long id){
         return conductorService.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class ConductorController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteConductorById(@PathVariable String id){
+    public String deleteConductorById(@PathVariable Long id){
         conductorService.deleteById(id);
         return "Borrado correctamente";
     }
@@ -45,7 +45,7 @@ public class ConductorController {
     }
 
     @PutMapping("/{id}")
-    public Conductor actualizarConductor(@PathVariable String id, @RequestBody Conductor conductorAct){
+    public Conductor actualizarConductor(@PathVariable Long id, @RequestBody Conductor conductorAct){
         return conductorService.update(id,conductorAct);
     }
 

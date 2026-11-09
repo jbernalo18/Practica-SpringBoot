@@ -26,7 +26,7 @@ public class EnvioController {
     }
 
     @GetMapping("/{id}")
-    public Envio getEnvioById(@PathVariable String id){
+    public Envio getEnvioById(@PathVariable Long id){
         return envioService.findById(id);
     }
 
@@ -41,12 +41,12 @@ public class EnvioController {
     }
 
     @PutMapping("/{id}")
-    public Envio updateEnvio(@PathVariable String id, @RequestBody Envio envio){
+    public Envio updateEnvio(@PathVariable Long id, @RequestBody Envio envio){
         return envioService.update(id,envio);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEnvio(@PathVariable String id){
+    public void deleteEnvio(@PathVariable Long id){
         envioService.deleteById(id);
     }
 

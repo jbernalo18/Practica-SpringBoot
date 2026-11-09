@@ -1,29 +1,53 @@
 package com.interrapidisimo.sistema_logistico.model;
 
+
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="envios")
 public class Envio {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String cliente;
+
+    @Column(nullable = false)
     private String destino;
+
+    @Column(nullable = false)
     private String estado;
+
+    @Column(name = "peso_kg", nullable = false)
     private double pesoKg;
+
+    @Column(nullable = false)
+    private double costo;
+
+    @OneToMany(mappedBy = "envio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConductorEnvio> asignaciones = new ArrayList<>();
 
     public Envio() {
     }
 
-    public Envio(String id, String cliente, String destino, String estado, double pesoKg) {
-        this.id = id;
+    public Envio(String cliente, String destino, String estado, double pesoKg, double costo) {
         this.cliente = cliente;
         this.destino = destino;
         this.estado = estado;
         this.pesoKg = pesoKg;
+        this.costo = costo;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,4 +83,11 @@ public class Envio {
         this.pesoKg = pesoKg;
     }
 
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
 }

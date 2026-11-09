@@ -1,24 +1,44 @@
 package com.interrapidisimo.sistema_logistico.model;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="conductores")
 public class Conductor {
     //1. Completar la clase POJO de conductor con los atributos id, nombre, apellido, licencia, telefono y contraseña
     //2. Crear Interfaz ConductorService y su respectiva clase de implementacion
     //3. Crear clase controller para recibir solicitudes HTTP y hacer las respectivas pruebas con Postman o Insomnia
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String id;
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String apellido;
+
+    @Column(nullable = false)
     private String licencia;
+
+    @Column(nullable = false)
     private String telefono;
+
+    @Column(nullable = false)
     private String contrasena;
 
+    @OneToMany(mappedBy = "conductor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConductorEnvio> asignaciones = new ArrayList<>();
+
     //constructir vacio
-    public Conductor(){
+    public Conductor() {
 
     }
 
-    public Conductor(String id, String nombre, String apellido, String licencia, String telefono, String contrasena) {
-        this.id = id;
+    public Conductor(String nombre, String apellido, String licencia, String telefono, String contrasena) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.licencia = licencia;
@@ -26,12 +46,20 @@ public class Conductor {
         this.contrasena = contrasena;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getNombre() {
@@ -64,13 +92,5 @@ public class Conductor {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
 }
