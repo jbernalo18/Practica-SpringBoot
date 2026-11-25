@@ -25,3 +25,5 @@ RUN groupadd -r app && useradd -r -g app app
 COPY --from=build --chown=app:app /tmp/app.jar /app/app.jar
 
 USER app
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
