@@ -5,9 +5,8 @@ import com.interrapidisimo.sistema_logistico.repository.EnvioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class EnvioServiceJPA implements EnvioService{
@@ -19,8 +18,8 @@ public class EnvioServiceJPA implements EnvioService{
     }
 
     @Override
-    public List<Envio> findAll() {
-        return  envioRepository.findAll();
+    public Page<Envio> findAll(Pageable pageable) {
+        return  envioRepository.findAll(pageable);
     }
 
     @Override
@@ -81,8 +80,8 @@ public class EnvioServiceJPA implements EnvioService{
     }
 
     @Override
-    public List<Envio> findByEstado(String estado) {
-        return envioRepository.findByEstado(estado);
+    public Page<Envio> findByEstado(String estado, Pageable pageable) {
+        return envioRepository.findByEstado(estado, pageable);
     }
 
     //metodos logica de negocio

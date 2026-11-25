@@ -1,12 +1,14 @@
 package com.interrapidisimo.sistema_logistico.controller;
 
+import com.interrapidisimo.sistema_logistico.dto.EnvioDto;
 import com.interrapidisimo.sistema_logistico.model.Envio;
 import com.interrapidisimo.sistema_logistico.service.EnvioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.Pageable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/envios")
@@ -21,28 +23,38 @@ public class EnvioController {
     }
 
     @GetMapping
-    public List<Envio> getAllEnvios(){
-        return envioService.findAll();
+    public List<EnvioDto> getAllEnvios(@PageableDefault(size = 5,sort="id") Pageable pageable){
+        return envioService.findAll(pageable)
+                .getContent()
+                .stream()
+                .map(EnvioDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Envio getEnvioById(@PathVariable Long id){
-        return envioService.findById(id);
+    public EnvioDto getEnvioById(@PathVariable Long id){
+        return EnvioDto.fromEntity(envioService.findById(id));
     }
 
     @GetMapping("/estado/{estado}")
-    public List<Envio> getEnviosByEstado(@PathVariable String estado){
-        return envioService.findByEstado(estado);
+    public List<EnvioDto> getEnviosByEstado(@PathVariable String estado, Pageable pageable){
+        return envioService.findByEstado(estado, pageable)
+                .getContent()
+                .stream()
+                .map(EnvioDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @PostMapping
-    public Envio createEnvio(@RequestBody Envio envio){
-        return envioService.save(envio);
+    public EnvioDto createEnvio(@RequestBody EnvioDto envioDto){
+        Envio envio= envioDto.toEntity();
+        return EnvioDto.fromEntity(envioService.save(envio));
     }
 
     @PutMapping("/{id}")
-    public Envio updateEnvio(@PathVariable Long id, @RequestBody Envio envio){
-        return envioService.update(id,envio);
+    public EnvioDto updateEnvio(@PathVariable Long id, @RequestBody EnvioDto envioDto){
+        Envio envio= envioDto.toEntity();
+        return EnvioDto.fromEntity(envioService.update(id,envio));
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.interrapidisimo.sistema_logistico.service;
 
+import com.interrapidisimo.sistema_logistico.dto.ConductorEnvioDto;
 import com.interrapidisimo.sistema_logistico.model.Conductor;
 import com.interrapidisimo.sistema_logistico.model.ConductorEnvio;
 import com.interrapidisimo.sistema_logistico.model.Envio;

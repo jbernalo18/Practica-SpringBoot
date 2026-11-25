@@ -1,12 +1,15 @@
 package com.interrapidisimo.sistema_logistico.controller;
 
 
+import com.interrapidisimo.sistema_logistico.dto.ConductorDto;
+import com.interrapidisimo.sistema_logistico.dto.EnvioDto;
 import com.interrapidisimo.sistema_logistico.model.Conductor;
 import com.interrapidisimo.sistema_logistico.service.ConductorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping ("/api/conductores")
@@ -19,8 +22,11 @@ public class ConductorController {
     }
 
     @GetMapping
-    public List<Conductor> getAllConductors(){
-    return conductorService.findAll();
+    public List<ConductorDto> getAllConductors(){
+    return conductorService.findAll()
+            .stream()
+            .map(ConductorDto::fromEntity)
+            .collect(Collectors.toList());
     }
 
     @GetMapping ("/{id}")

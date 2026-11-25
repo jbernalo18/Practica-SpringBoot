@@ -26,7 +26,7 @@ public class Envio {
     @Column(name = "peso_kg", nullable = false)
     private double pesoKg;
 
-    @Column(nullable = false)
+
     private double costo;
 
     @OneToMany(mappedBy = "envio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -41,6 +41,13 @@ public class Envio {
         this.estado = estado;
         this.pesoKg = pesoKg;
         this.costo = costo;
+    }
+
+    public Envio(String cliente, String destino, String estado, double pesoKg) {
+        this.cliente = cliente;
+        this.destino = destino;
+        this.estado = estado;
+        this.pesoKg = pesoKg;
     }
 
     public Long getId() {

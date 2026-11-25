@@ -1,5 +1,6 @@
 package com.interrapidisimo.sistema_logistico.controller;
 
+import com.interrapidisimo.sistema_logistico.dto.ConductorEnvioDto;
 import com.interrapidisimo.sistema_logistico.model.ConductorEnvio;
 import com.interrapidisimo.sistema_logistico.service.ConductorEnvioService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,11 +19,12 @@ public class ConductorServiceController {
     }
 
     @PostMapping
-    public ConductorEnvio asignar(@RequestParam Long envioId,
-                                  @RequestParam Long conductorId,
-                                  @RequestParam String responsable,
-                                  @RequestParam(required = false) String observaciones) {
-        return conductorEnvioService.asignarConductorAEnvio(envioId, conductorId, responsable, observaciones);
+    public ConductorEnvioDto asignar(@RequestParam Long envioId,
+                                     @RequestParam Long conductorId,
+                                     @RequestParam String responsable,
+                                     @RequestParam(required = false) String observaciones) {
+        return ConductorEnvioDto.fromEntity(conductorEnvioService.asignarConductorAEnvio(envioId, conductorId, responsable, observaciones));
     }
+
 
 }

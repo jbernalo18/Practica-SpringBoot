@@ -46,6 +46,9 @@ public class Conductor {
         this.contrasena = contrasena;
     }
 
+    public Conductor(String nombre, String apellido, String licencia, String telefono) {
+    }
+
     public Long getId() {
         return id;
     }
